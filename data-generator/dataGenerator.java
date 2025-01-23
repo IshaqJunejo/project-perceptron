@@ -68,7 +68,7 @@ class dataGenerator {
 			for (int[] row : dataset) {
 				for (int data : row) {
 					writer.write(String.valueOf(data));
-					writer.write(",");
+//					writer.write(",");
 				}
 //				writer.write(String.join(",", row));
 				writer.newLine();
@@ -124,7 +124,7 @@ class dataGenerator {
 			data[i+1] = generateRectArray(size);
 		}
 
-		writeCSV("dataset.csv", data);
+		writeCSV("dataset.txt", data);
 //		for (int i = 0; i < 1000; i++) {
 //			System.out.println(data[i][rect.length - 1]);
 //		}
