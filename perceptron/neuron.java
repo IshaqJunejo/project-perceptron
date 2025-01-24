@@ -1,23 +1,23 @@
 class neuron {
-	public double weights[] = {};
+	public double[] weights = new double[256];
 	public double bias;
 	public double output;
-	private double inputs[] = {};
+	private double[] inputs = new double[256];
 	private double z;
 
 	// Contructor
 	public neuron (int numOfInputs) {
-		// Randomizing Weights
+		// Randomizing Weights (range: -1 to 1)
 		for (int i = 0; i < numOfInputs; i++) {
-			this.weights[i] = Math.random();
+			this.weights[i] = Math.random() * 2 - 1;
 		}
 
-		// Randomizing Bias
-		this.bias = Math.random();
+		// Randomizing Bias (range: -1 to 1)
+		this.bias = Math.random() * 2 - 1;
 	}
 
 	// Method for Forward Propagation
-	public double forwardPass (double inputValues[]) {
+	public double forwardPass (double[] inputValues) {
 		this.inputs = inputValues;
 		this.z = dotProduct(weights, inputs) + bias;
 		this.output = sigmoid(z);
