@@ -1,8 +1,8 @@
 import java.io.*;
 
 public class dataReader {
-    // Method to read data from a CSV file
-    public static int[][] readCSV(String filePath, int size1, int size2) {
+    // Method to read data from a TXT file
+    public static int[][] readTXT(String filePath, int size1, int size2) {
 		int[][] data = new int[size1][size2];
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;

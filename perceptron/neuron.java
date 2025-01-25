@@ -1,7 +1,7 @@
 class neuron {
-	public double[] weights = new double[256];
-	public double bias;
-	public double output;
+	private double[] weights = new double[256];
+	private double bias;
+	private double output;
 	private double[] inputs = new double[256];
 	private double z;
 
