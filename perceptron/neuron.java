@@ -18,10 +18,35 @@ class neuron {
 
 	// Method for Forward Propagation
 	public double forwardPass (double[] inputValues) {
+		// Inputs
 		this.inputs = inputValues;
+		// Weighted Sum symbolised as 'z'
 		this.z = dotProduct(weights, inputs) + bias;
+		// Output = activation of weight sum
 		this.output = sigmoid(z);
+		// return output
 		return this.output;
+	}
+
+	// Method for Back Propagation
+	public void backPropagate (double label, double learningRate) {
+		// Computing Loss
+		double loss = this.lossFunction(this.getOutput(), label);
+		// Derivative of Loss with respect to 'z' (weighted sum)
+		double dz = loss * sigmoidDerivative(this.getOutput());
+		// Derivative of Loss with respect to weights
+		double[] dweights = new double[this.inputs.length];
+		for (int i = 0; i < dweights.length; i++) {
+			dweights[i] = dz * this.inputs[i];
+		}
+		// Derivative of Loss with respect to Bias
+		double dbias = dz * 1;
+
+		// Updating weights and bias
+		for (int i = 0; i < this.weights.length; i++) {
+			this.weights[i] -= dweights[i] * learningRate;
+		}
+		this.bias -= dbias * learningRate;
 	}
 
 	// Method to get the value of Output
@@ -39,9 +64,19 @@ class neuron {
 		return this.bias;
 	}
 
+	// Loss Function
+	private double lossFunction (double output, double label) {
+		return output - label;
+	}
+
 	// Sigmoid for Activation
 	private double sigmoid (double x) {
 		return 1.0 / (1 + Math.exp(-x));
+	}
+
+	// Method for derivative of Sigmoid
+	private double sigmoidDerivative(double x) {
+		return x * (1 - x);
 	}
 
 	// Method for Calculating Dot Product

@@ -33,35 +33,20 @@ class perceptron {
 			}
 			outputs[i] = (double)dataset[i][size * size];
 		}
-		
-		// selecting a random shape from the dataset
-		int randomVal = (int)(Math.random() * 1000);
 
-		// Printing out our shape
-		for (int i = 0; i < 256; i++) {
-			if (i % 16 == 0) { System.out.println(); }
-			System.out.print((int)inputs[randomVal][i] + " ");
+		// Training for 200 Epochs
+		for (int i = 0; i < 200; i++) {
+			for (int j = 0; j < dataset.length; j++) {
+				// Forward Propagation
+				outputneuron.forwardPass(inputs[j]);
+				// Back Propagation (and updating parameters)
+				outputneuron.backPropagate(outputs[j], 0.1);
+			}
+
+			// Update after every 10 Epoch
+			if (i % 10 == 0) {
+				System.out.println("Epoch No: " + i);
+			}
 		}
-		
-		System.out.println();
-		System.out.println();
-
-		// Printing out our weights
-		for (int i = 0; i < 256; i++) {
-			if (i % 16 == 0) { System.out.println(); }
-			System.out.print(outputneuron.getWeights()[i] + " ");
-		}
-		
-		System.out.println();
-		System.out.println();
-
-		// Printing out our Bias
-		System.out.println(outputneuron.getBias());
-
-		System.out.println();
-		System.out.println();
-
-		// Printing out the result of Forward Propagation (Untrained)
-		System.out.println(outputneuron.forwardPass(inputs[randomVal]));
 	}
 }
