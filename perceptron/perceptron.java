@@ -1,3 +1,5 @@
+import java.io.*;
+
 class perceptron {
 	// Method to shuffle the dataset (risks losing some data due to duplication)
 	private static int[][] shuffleData(int[][] dataset) {
@@ -10,6 +12,28 @@ class perceptron {
 		}
 
 		return shuffledDataset;
+	}
+
+	// Function to write parameters (weights and bias) in txt files
+	private static void writeDataToFile(double[] weight, double bias) {
+		// Writing Weights
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("weights.txt"))) {
+			for (double value : weight) {
+				writer.write(String.valueOf(value));
+				writer.newLine();
+			}
+			System.out.println("Weights stored in weights.txt");
+		} catch (IOException e) {
+			System.out.println("Error writing to file: " + e.getMessage());
+		}
+		// Writing Bias
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("bias.txt"))) {
+			writer.write(String.valueOf(bias));
+			writer.newLine();
+			System.out.println("Bias stored in bias.txt");
+		} catch (IOException e) {
+			System.out.println("Error writing to file: " + e.getMessage());
+		}
 	}
 
 	// Main Function
@@ -107,5 +131,8 @@ class perceptron {
 
 		//
 		System.out.println("Accuracy in the test: " + (accuracy * 100) + "%");
+
+		// Storing Parameters 
+		writeDataToFile(outputneuron.getWeights(), outputneuron.getBias());
 	}
 }
